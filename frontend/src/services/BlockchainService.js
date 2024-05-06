@@ -1,31 +1,38 @@
-import Web3 from 'web3';
-import ForensicEvidenceManagerABI from '../build/contracts/ForensicEvidenceManager.json';
+const { Web3 } = require('web3');
+const EvidenceManagementABI = require('../../../build/contracts/EvidenceManagement.json');
 
-const web3 = new Web3('http://localhost:8545'); // Connect to a local Ethereum node
+const web3 = new Web3('http://localhost:8545');
 
-const contractAddress = '0x1234567890123456789012345678901234567890'; // Replace with your actual contract address
+const contractAddress = '0xdC32A43407d8c4919a07E6339C1030D9143F8bB9';  
 
-const ForensicEvidenceManager = new web3.eth.Contract(
-  ForensicEvidenceManagerABI.abi,
+const EvidenceManagement = new web3.eth.Contract(
+  EvidenceManagementABI.abi,
   contractAddress
 );
 
-export const addEvidence = async (name, description) => {
+const addEvidence = async (description) => {
   const accounts = await web3.eth.getAccounts();
-  await ForensicEvidenceManager.methods.addEvidence(name, description).send({ from: accounts[0] });
+  await EvidenceManagement.methods.addEvidence(description).send({ from: accounts[0] });
 }
 
-export const updateEvidence = async (id, name, description) => {
+const updateEvidence = async (id, description) => {
   const accounts = await web3.eth.getAccounts();
-  await ForensicEvidenceManager.methods.updateEvidence(id, name, description).send({ from: accounts[0] });
+  await EvidenceManagement.methods.updateEvidenceDescription(id, description).send({ from: accounts[0] });
 }
 
-export const deleteEvidence = async (id) => {
+const deleteEvidence = async (id) => {
   const accounts = await web3.eth.getAccounts();
-  await ForensicEvidenceManager.methods.deleteEvidence(id).send({ from: accounts[0] });
+  await EvidenceManagement.methods.deleteEvidence(id).send({ from: accounts[0] });
 }
 
-export const getEvidence = async (id) => {
-  const evidence = await ForensicEvidenceManager.methods.getEvidence(id).call();
+const getEvidence = async (id) => {
+  const evidence = await EvidenceManagement.methods.getEvidence(id).call();
   return evidence;
 }
+
+module.exports = {
+  addEvidence,
+  updateEvidence,
+  deleteEvidence,
+  getEvidence
+};
