@@ -4,9 +4,9 @@ const { Web3 } = require('web3');
 async function main() {
   const web3 = new Web3('http://localhost:8545');
 
-  const contractAddress = '0xdC32A43407d8c4919a07E6339C1030D9143F8bB9';
+  const contractAddress = '0x3a0466Ad1dfC40e083ea9580Be3Af63Ddce1e4D0';
   const EvidenceManagement = new web3.eth.Contract(
-    require('../../../build/contracts/EvidenceManagement.json').abi,
+    require('../contracts/EvidenceManagement.json').abi,
     contractAddress
   );
 
