@@ -8,7 +8,8 @@ const ForensicEvidenceForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await addEvidence(name, description);
+      const evidenceDescription = `${name}: ${description}`;
+      await addEvidence(evidenceDescription);
       alert('Forensic evidence added successfully!');
       setName('');
       setDescription('');
